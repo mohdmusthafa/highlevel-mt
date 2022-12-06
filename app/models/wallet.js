@@ -8,7 +8,11 @@ const Schema = mongoose.Schema;
 
 const WalletSchema = new Schema({
   name: { type: String },
-  balance: { type: Number }
+  balance: { type: Number },
+  date: {
+    type: Number,
+    defaultValue: Date.now(),
+  },
 });
 
 WalletSchema.method({});

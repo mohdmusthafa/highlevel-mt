@@ -4,28 +4,29 @@
  * Product : HighLevel Wallet API
  */
 
+const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const winston = require('winston');
-const walletRouter = require('./routers/wallet');
+const appRouter = require('./routers');
 
 const env = process.env.NODE_ENV || 'development';
 
-module.exports = function(app) {
+module.exports = function (app) {
   app.use(helmet());
-  
+  app.use(express.json());
+
   // Routers
-  app.use('/wallet', walletRouter);
+  app.use('/', appRouter);
   let log;
   if (env !== 'development') {
     log = {
       stream: {
-        write: msg => winston.info(msg)
-      }
+        write: (msg) => winston.info(msg),
+      },
     };
   } else {
     log = 'dev';
   }
   if (env !== 'test') app.use(morgan(log));
-
 };

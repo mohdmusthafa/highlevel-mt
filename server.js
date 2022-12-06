@@ -21,13 +21,13 @@ const connection = connect();
 
 module.exports = {
   app,
-  connection
+  connection,
 };
 
 // Bootstrap models
 fs.readdirSync(models)
-  .filter(file => ~file.indexOf('.js'))
-  .forEach(file => require(join(models, file)));
+  .filter((file) => ~file.indexOf('.js'))
+  .forEach((file) => require(join(models, file)));
 
 // Bootstrap app
 require('./app')(app);
@@ -43,10 +43,10 @@ function listen() {
 }
 
 function connect() {
-  var options = {
-    keepAlive: 1,
+  const options = {
+    keepAlive: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   };
   mongoose.connect(MONGO_URI, options);
   return mongoose.connection;
