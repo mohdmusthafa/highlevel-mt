@@ -9,8 +9,6 @@ services:
       - .:/app
       - /app/node_modules
     command: /usr/local/wait-for-it.sh mongo:27017 -- npm start
-    env_file:
-      - .env
     ports:
       - 8000:8000
     depends_on:
