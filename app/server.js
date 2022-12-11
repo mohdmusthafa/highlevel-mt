@@ -12,7 +12,7 @@ const join = require('path').join;
 const express = require('express');
 const mongoose = require('mongoose');
 
-const models = join(__dirname, 'app/models');
+const models = join(__dirname, 'models');
 const port = process.env.PORT || 8000;
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/mydb';
 

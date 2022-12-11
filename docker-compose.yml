@@ -1,0 +1,26 @@
+version: "3.2"
+
+services:
+  node:
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: /usr/local/wait-for-it.sh mongo:27017 -- npm start
+    env_file:
+      - .env
+    ports:
+      - 8000:8000
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/highlevel_wallet
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data/db

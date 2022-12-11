@@ -14,7 +14,7 @@ const appRouter = require('./routers');
 const env = process.env.NODE_ENV || 'development';
 
 module.exports = function (app) {
-  app.use(cors())
+  app.use(cors());
   app.use(helmet());
   app.use(express.json());
 
