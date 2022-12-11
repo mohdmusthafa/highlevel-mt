@@ -4,14 +4,14 @@
  * Product : HighLevel Wallet API
  */
 
-const express = require('express');
-const cors = require('cors');
-const morgan = require('morgan');
-const helmet = require('helmet');
-const winston = require('winston');
-const appRouter = require('./routers');
+const express = require("express");
+const cors = require("cors");
+const morgan = require("morgan");
+const helmet = require("helmet");
+const winston = require("winston");
+const appRouter = require("./routers");
 
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || "development";
 
 module.exports = function (app) {
   app.use(cors());
@@ -19,16 +19,21 @@ module.exports = function (app) {
   app.use(express.json());
 
   // Routers
-  app.use('/', appRouter);
+  app.use("/", appRouter);
   let log;
-  if (env !== 'development') {
+  if (env !== "development") {
     log = {
       stream: {
         write: (msg) => winston.info(msg),
       },
     };
   } else {
-    log = 'dev';
+    log = "dev";
   }
-  if (env !== 'test') app.use(morgan(log));
+  if (env !== "test") app.use(morgan(log));
+
+  app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send("Something broke!");
+  });
 };

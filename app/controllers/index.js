@@ -41,8 +41,7 @@ module.exports.setUpWallet = async (req, res) => {
       date: transaction.date,
     });
   } catch (error) {
-    console.log(error);
-    throw error;
+    res.status(400).json({ message: 'Invalid Request' })
   }
 };
 
@@ -80,8 +79,7 @@ module.exports.transact = async (req, res) => {
       transaction_id: transaction.id,
     });
   } catch (error) {
-    console.log(error);
-    throw error;
+    res.status(400).json({ message: 'Invalid Request' })
   }
 };
 
@@ -107,8 +105,7 @@ module.exports.fetchTransactions = async (req, res) => {
       total_count,
     });
   } catch (error) {
-    console.log(error);
-    throw error;
+    res.status(400).json({ message: 'Invalid Request' })
   }
 };
 
@@ -118,7 +115,6 @@ module.exports.getWalletDetails = async (req, res) => {
     const wallet = await Wallet.findById(id).exec();
     res.send(wallet);
   } catch (error) {
-    console.log(error);
-    throw error;
+    res.status(400).json({ message: 'Invalid Request' })
   }
 };
